@@ -1,0 +1,40 @@
+<?php
+function download_page($path){
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL,$path);
+    curl_setopt($ch, CURLOPT_FAILONERROR,1);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION,1);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+    $retValue = curl_exec($ch);
+    return $retValue;
+}
+
+$sXML = download_page('http://www.floatrates.com/daily/usd.xml');
+
+//var_dump($sXML);
+$oXML = simplexml_load_string($sXML);
+//var_dump($oXML);
+
+//    $i=0;
+//    while ($i<10){
+//        echo '<pre>';
+//        print_r($oXML->item[$i]);
+//        echo '</pre>';
+//        $i++;
+//    }
+
+foreach ($oXML->item as $value) {
+
+    printf($value->title);
+
+    printf($value->inverseDescription);
+
+    pintf($value->inverseDescription);
+    printf($value->title);
+    
+
+
+
+}
+?>
